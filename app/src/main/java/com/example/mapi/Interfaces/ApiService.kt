@@ -1,17 +1,23 @@
 package com.example.mapi.Interfaces
 
 import retrofit2.Call
-import retrofit2.http.GET
+import retrofit2.http.Body
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("{type}/{category}")
-    fun getImage(
+    @POST("many/{type}/{category}")
+    fun getImages(
         @Path("type") type: String,
-        @Path("category") category: String
-    ): Call<ImageResponse>
+        @Path("category") category: String,
+        @Body requestData: RequestData
+    ): Call<ImagesResponse>
 }
 
-data class ImageResponse(
-    val url: String
+data class RequestData(
+    val exclude: List<String>
+)
+
+data class ImagesResponse(
+    val files: List<String>
 )
